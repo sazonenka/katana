@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<dataset-constraints id="config-1">
+  <validation-rules>
+    <validation-rule id="rule-1">
+      <regexp>regexp-1</regexp>
+      <description>description-1</description>
+    </validation-rule>
+  </validation-rules>
+  <output-files>
+  </output-files>
+</dataset-constraints>

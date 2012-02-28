@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<dataset-constraints id="config-1">
+  <validation-rules>
+    <validation-rule id="rule-1">
+      <nullable>false</nullable>
+      <regexp>regexp-1</regexp>
+    </validation-rule>
+  </validation-rules>
+  <output-files>
+    <output-file name="file-1.csv">
+      <field name="field-1" validation-rule="rule-1"/>
+    </output-file>
+    <output-file name="file-2.csv">
+      <field name="field-1" validation-rule="rule-1"/>
+    </output-file>
+    <output-file name="file-3.csv">
+      <extends file="file-1.csv"/>
+      <extends file="file-2.csv"/>
+    </output-file>
+  </output-files>
+</dataset-constraints>

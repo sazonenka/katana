@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+                              http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping>
+    <class-a>by.sazonenka.katana.persistence.domain.ConstraintConfig</class-a>
+    <class-b>by.sazonenka.katana.web.model.ConstraintConfigModel</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>by.sazonenka.katana.persistence.domain.ValidationRule</class-a>
+    <class-b>by.sazonenka.katana.web.model.ValidationRuleModel</class-b>
+
+    <field>
+      <a>config.id</a>
+      <b>config</b>
+    </field>
+  </mapping>
+
+  <mapping>
+    <class-a map-null="false">by.sazonenka.katana.persistence.domain.OutputFile</class-a>
+    <class-b>by.sazonenka.katana.web.model.OutputFileModel</class-b>
+
+    <field>
+      <a>config.id</a>
+      <b>config</b>
+    </field>
+
+    <field>
+      <a>parent.name</a>
+      <b>parentFile</b>
+    </field>
+  </mapping>
+
+  <mapping>
+    <class-a map-null="false">by.sazonenka.katana.persistence.domain.OutputField</class-a>
+    <class-b>by.sazonenka.katana.web.model.OutputFieldModel</class-b>
+
+    <field>
+      <a>file.id</a>
+      <b>file</b>
+    </field>
+    <field>
+      <a>rule.name</a>
+      <b>rule</b>
+    </field>
+  </mapping>
+
+</mappings>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>by.sazonenka</groupId>
+    <artifactId>katana</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <name>katana-web</name>
+  <artifactId>katana-web</artifactId>
+
+  <packaging>war</packaging>
+
+  <properties>
+    <configs.location>${project.parent.basedir}/configs</configs.location>
+    <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+    
+    <commons-fileupload.version>1.2.2</commons-fileupload.version>
+
+    <com.google.gwt.version>2.4.0</com.google.gwt.version>
+    <com.extjs.version>2.2.5</com.extjs.version>
+    <com.allen-sauer.gwt.log.version>3.1.7</com.allen-sauer.gwt.log.version>
+
+    <com.google.inject.version>3.0</com.google.inject.version>
+    <com.google.gwt.inject.version>1.5.0</com.google.gwt.inject.version>
+
+    <net.sf.dozer.version>5.3.2</net.sf.dozer.version>
+
+    <com.google.code.gson.version>2.1</com.google.code.gson.version>
+
+    <gwt-maven-plugin.version>2.4.0</gwt-maven-plugin.version>
+    <tomcat-maven-plugin.version>1.1</tomcat-maven-plugin.version>
+  </properties>
+
+  <build>
+    <finalName>katana</finalName>
+    <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>${gwt-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <draftCompile>true</draftCompile>
+          <runTarget>config.htm?id=1</runTarget>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>tomcat-maven-plugin</artifactId>
+        <version>${tomcat-maven-plugin.version}</version>
+        <configuration>
+          <url>http://localhost:8080/manager</url>
+          <path>/${project.build.finalName}</path>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Katana -->
+    <dependency>
+      <groupId>by.sazonenka</groupId>
+      <artifactId>katana-persistence</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+
+    <!-- Spring Web -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload.version}</version>
+    </dependency>
+
+    <!-- GWT -->
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <version>${com.google.gwt.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>${com.google.gwt.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.extjs</groupId>
+      <artifactId>gxt</artifactId>
+      <version>${com.extjs.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava-gwt</artifactId>
+      <version>${com.google.guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.allen-sauer.gwt.log</groupId>
+      <artifactId>gwt-log</artifactId>
+      <version>${com.allen-sauer.gwt.log.version}</version>
+    </dependency>
+
+    <!-- Gin: DI for GWT -->
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${com.google.inject.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-assistedinject</artifactId>
+      <version>${com.google.inject.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt.inject</groupId>
+      <artifactId>gin</artifactId>
+      <version>${com.google.gwt.inject.version}</version>
+    </dependency>
+
+    <!-- Dozer: Java Bean mapper -->
+    <dependency>
+      <groupId>net.sf.dozer</groupId>
+      <artifactId>dozer</artifactId>
+      <version>${net.sf.dozer.version}</version>
+    </dependency>
+
+    <!-- Gson: Java to Json conversion -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${com.google.code.gson.version}</version>
+    </dependency>
+  </dependencies>
+
+</project>

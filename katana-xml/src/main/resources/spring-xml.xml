@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <!-- Simple Framework Serializer -->
+  <bean id="serializer" class="org.simpleframework.xml.core.Persister">
+    <constructor-arg>
+      <bean class="org.simpleframework.xml.stream.Format">
+        <constructor-arg name="indent" value="2"/>
+        <constructor-arg name="prolog">
+          <value><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>]]></value>
+        </constructor-arg>
+      </bean>
+    </constructor-arg>
+  </bean>
+
+  <!-- XML Service Scanning -->
+  <context:component-scan base-package="by.sazonenka.katana.xml.service"/>
+
+</beans>

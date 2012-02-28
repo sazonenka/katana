@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{ISO8601} %5p %c{1} - %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="masterAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="${catalina.base}/logs/katana-master.log" />
+    <param name="maxFileSize" value="20MB" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="encoding" value="UTF-8" />
+    <param name="append" value="false" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{ISO8601} %5p %c - %m%n"/>
+    </layout>
+  </appender>
+
+  <logger name="by.sazonenka.katana.persistence" additivity="false">
+    <level value="INFO"/>
+    <appender-ref ref="masterAppender"/>
+  </logger>
+
+  <logger name="by.sazonenka.katana.xml" additivity="false">
+    <level value="INFO"/>
+    <appender-ref ref="masterAppender"/>
+  </logger>
+
+  <logger name="by.sazonenka.katana.web" additivity="false">
+    <level value="INFO"/>
+    <appender-ref ref="masterAppender"/>
+  </logger>
+
+  <logger name="org.springframework" additivity="false">
+    <level value="OFF"/>
+    <appender-ref ref="masterAppender"/>
+  </logger>
+
+  <logger name="org.hibernate" additivity="false">
+    <level value="OFF"/>
+    <appender-ref ref="masterAppender"/>
+  </logger>
+
+  <logger name="org.dozer" additivity="false">
+    <level value="OFF"/>
+    <appender-ref ref="masterAppender"/>
+  </logger>
+
+  <root>
+    <priority value="INFO" />
+    <appender-ref ref="stdout" />
+  </root>
+
+</log4j:configuration>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="directory">
+
+  <inherits name="com.google.gwt.user.User" />
+  <inherits name="com.google.gwt.user.theme.standard.Standard" />
+  <inherits name="com.extjs.gxt.ui.GXT" />
+  <inherits name="com.google.common.base.Base" />
+  <inherits name="com.google.common.collect.Collect" />
+  <inherits name="com.allen_sauer.gwt.log.gwt-log-INFO" />
+  <inherits name="com.google.gwt.inject.Inject" />
+
+  <entry-point class="by.sazonenka.katana.web.client.DirectoryApplication" />
+
+  <source path="client" />
+  <source path="model" />
+
+  <set-property name="user.agent" value="gecko1_8" />
+  <set-property name="log_DivLogger" value="DISABLED" />
+
+</module>

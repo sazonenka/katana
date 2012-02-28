@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
+                             http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+         name="Katana Ruleset">
+
+  <description>Katana Ruleset</description>
+
+  <rule ref="rulesets/basic.xml"/>
+  <rule ref="rulesets/braces.xml"/>
+
+  <rule ref="rulesets/codesize.xml"/>
+  <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+    <properties>
+      <property name="minimum" value="300"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+    <properties>
+      <property name="minimum" value="50"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/ExcessiveParameterList">
+    <properties>
+      <property name="minimum" value="5"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/TooManyMethods">
+    <properties>
+      <property name="maxmethods" value="20"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/TooManyFields">
+    <properties>
+      <property name="maxfields" value="12"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/NcssMethodCount">
+    <properties>
+      <property name="minimum" value="30"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/NcssTypeCount">
+    <properties>
+      <property name="minimum" value="300"/>
+    </properties>
+  </rule>
+  <rule ref="rulesets/codesize.xml/NcssConstructorCount">
+    <properties>
+      <property name="minimum" value="20"/>
+    </properties>
+  </rule>
+
+  <rule ref="rulesets/controversial.xml">
+    <exclude name="OnlyOneReturn"/>
+    <exclude name="AtLeastOneConstructor"/>
+    <exclude name="CallSuperInConstructor"/>
+    <exclude name="UnnecessaryParentheses"/>
+  </rule>
+
+  <rule ref="rulesets/coupling.xml"/>
+  <rule ref="rulesets/design.xml">
+    <exclude name="MissingStaticMethodInNonInstantiatableClass"/>
+    <exclude name="MissingBreakInSwitch"/>
+  </rule>
+  <rule ref="rulesets/imports.xml"/>
+  <rule ref="rulesets/migrating_to_15.xml"/>
+  <rule ref="rulesets/naming.xml">
+    <exclude name="AbstractNaming"/>
+    <exclude name="ShortMethodName"/>
+    <exclude name="ShortVariable"/>
+  </rule>
+  <rule ref="rulesets/naming.xml/LongVariable">
+    <properties>
+      <property name="minimum" value="20"/>
+    </properties>
+  </rule>
+
+  <rule ref="rulesets/optimizations.xml">
+    <exclude name="AvoidInstantiatingObjectsInLoops"/>
+    <exclude name="LocalVariableCouldBeFinal"/>
+    <exclude name="MethodArgumentCouldBeFinal"/>
+    <exclude name="UseStringBufferForStringAppends"/>
+  </rule>
+
+  <rule ref="rulesets/strictexception.xml"/>
+  <rule ref="rulesets/strings.xml"/>
+  <rule ref="rulesets/strings.xml/AvoidDuplicateLiterals">
+    <properties>
+      <property name="threshold" value="3"/>
+      <property name="skipAnnotations" value="true"/>
+    </properties>
+  </rule>
+  
+  <rule ref="rulesets/unusedcode.xml"/>
+</ruleset>

@@ -1,0 +1,14 @@
+# Eclipse files #
+.project
+.classpath
+.settings/
+
+# Maven files #
+target/
+
+# Handy scripts for quick redeployment #
+config-redeploy.bat
+directory-redeploy.bat
+
+# Log files #
+*.log
