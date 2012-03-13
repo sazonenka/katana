@@ -8,5 +8,6 @@
   <import resource="classpath*:spring-converter.xml"/>
   <import resource="classpath*:spring-service.xml"/>
   <import resource="classpath*:spring-xml.xml"/>
+  <import resource="classpath*:spring-interceptor.xml"/>
 
 </beans>

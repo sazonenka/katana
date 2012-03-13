@@ -9,6 +9,17 @@
     </layout>
   </appender>
 
+  <appender name="masterAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="katana-master.log" />
+    <param name="maxFileSize" value="20MB" />
+    <param name="maxBackupIndex" value="5" />
+    <param name="encoding" value="UTF-8" />
+    <param name="append" value="false" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%5p %c{1} - %m%n"/>
+    </layout>
+  </appender>
+
   <appender name="persistenceAppender" class="org.apache.log4j.RollingFileAppender">
     <param name="file" value="katana-persistence.log" />
     <param name="maxFileSize" value="20MB" />
@@ -31,20 +42,9 @@
     </layout>
   </appender>
 
-  <appender name="hbm2ddlAppender" class="org.apache.log4j.RollingFileAppender">
-    <param name="file" value="katana-hbm2ddl.log" />
-    <param name="maxFileSize" value="20MB" />
-    <param name="maxBackupIndex" value="5" />
-    <param name="encoding" value="UTF-8" />
-    <param name="append" value="false" />
-    <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="%5p %c{1} - %m%n"/>
-    </layout>
-  </appender>
-
   <logger name="by.sazonenka.katana.persistence" additivity="false">
     <level value="DEBUG"/>
-    <appender-ref ref="persistenceAppender"/>
+    <appender-ref ref="masterAppender"/>
   </logger>
 
   <logger name="org.springframework" additivity="false">
@@ -60,11 +60,6 @@
   <logger name="org.hibernate.SQL" additivity="false">
     <level value="DEBUG"/>
     <appender-ref ref="sqlAppender"/>
-  </logger>
-
-  <logger name="org.hibernate.tool.hbm2ddl" additivity="false">
-    <level value="DEBUG"/>
-    <appender-ref ref="hbm2ddlAppender"/>
   </logger>
 
   <root>

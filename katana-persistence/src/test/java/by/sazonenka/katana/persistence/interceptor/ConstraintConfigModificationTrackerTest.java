@@ -6,13 +6,21 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
-import org.aspectj.lang.JoinPoint;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
+
+import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Supplier;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 
 import by.sazonenka.katana.persistence.domain.ConstraintConfig;
 import by.sazonenka.katana.persistence.domain.OutputField;
@@ -20,86 +28,164 @@ import by.sazonenka.katana.persistence.domain.OutputFile;
 import by.sazonenka.katana.persistence.domain.ValidationRule;
 import by.sazonenka.katana.persistence.service.GenericServiceTest;
 
-import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 /**
  * @author Aliaksandr Sazonenka
  */
+@ContextConfiguration({ "/spring-interceptor.xml" })
 public class ConstraintConfigModificationTrackerTest extends GenericServiceTest {
 
-  private List<ConfigMutator> mutators;
+  private static final String METHOD_SAVE = "save";
+  private static final String METHOD_DELETE = "delete";
 
-  private ConstraintConfigModificationTracker tracker;
+  @Inject private ConstraintConfigModificationTracker tracker;
 
-  @Before
-  public void setUp() {
-    mutators = ImmutableList.of(
-      new ConfigMutator(ruleService,
-          ImmutableMap.of(
-              "save", new Object[] { getRule1() },
-              "delete", new Object[] { getRule1() }
-              ),
-          ImmutableList.of("get", "deleteById", "findByConfig"),
-          new Function<Object, ConstraintConfig>() {
-            @Override
-            public ConstraintConfig apply(Object entity) {
-              if (entity instanceof ValidationRule) {
-                return ((ValidationRule) entity).getConfig();
-              }
-              return null;
-            }
-          }),
-      new ConfigMutator(fileService,
-          ImmutableMap.of(
-              "save", new Object[] { getFile1() },
-              "delete", new Object[] { getFile1() }
-              ),
-          ImmutableList.of("get", "deleteById", "findByConfig", "findByParent"),
-          new Function<Object, ConstraintConfig>() {
-            @Override
-            public ConstraintConfig apply(Object entity) {
-              if (entity instanceof OutputFile) {
-                return ((OutputFile) entity).getConfig();
-              }
-              return null;
-            }
-          }),
-      new ConfigMutator(fieldService,
-          ImmutableMap.of(
-              "save", new Object[] { getField1() },
-              "delete", new Object[] { getField1() }
-              ),
-          ImmutableList.of("get", "deleteById", "findByFile", "findByRule"),
-          new Function<Object, ConstraintConfig>() {
-            @Override
-            public ConstraintConfig apply(Object entity) {
-              if (entity instanceof OutputField) {
-                return ((OutputField) entity).getFile().getConfig();
-              }
-              return null;
-            }
-          })
-      );
+  private ValidationRule rule;
+  private OutputFile file;
+  private OutputField field;
 
-    tracker = new ConstraintConfigModificationTracker(configDao);
+  private final Multimap<Object, MutationMethod> mutators = ArrayListMultimap.create();
+
+  @PostConstruct
+  public void populateConfigMutators() {
+    mutators.putAll(ruleService, ImmutableList.of(
+        new MutationMethod(METHOD_SAVE,
+            new Supplier<Object[]>() {
+              @Override
+              public Object[] get() {
+                return new Object[] { rule };
+              }
+            }, 0,
+            new Function<Object, ConstraintConfig>() {
+              @Override
+              public ConstraintConfig apply(Object input) {
+                if (input instanceof ValidationRule) {
+                  return ((ValidationRule) input).getConfig();
+                }
+                return null;
+              }
+            }),
+        new MutationMethod(METHOD_DELETE,
+            new Supplier<Object[]>() {
+              @Override
+              public Object[] get() {
+                return new Object[] { RULE_1_ID };
+              }
+            }, 0,
+            new Function<Object, ConstraintConfig>() {
+              @Override
+              public ConstraintConfig apply(Object input) {
+                if (input instanceof Long) {
+                  Long ruleId = (Long) input;
+                  return ruleDao.get(ruleId).getConfig();
+                }
+                return null;
+              }
+            })
+        ));
+    mutators.putAll(fileService, ImmutableList.of(
+        new MutationMethod(METHOD_SAVE,
+            new Supplier<Object[]>() {
+              @Override
+              public Object[] get() {
+                return new Object[] { file };
+              }
+            }, 0,
+            new Function<Object, ConstraintConfig>() {
+              @Override
+              public ConstraintConfig apply(Object input) {
+                if (input instanceof OutputFile) {
+                  return ((OutputFile) input).getConfig();
+                }
+                return null;
+              }
+            }),
+        new MutationMethod(METHOD_DELETE,
+            new Supplier<Object[]>() {
+              @Override
+              public Object[] get() {
+                return new Object[] { FILE_1_ID };
+              }
+            }, 0,
+            new Function<Object, ConstraintConfig>() {
+              @Override
+              public ConstraintConfig apply(Object input) {
+                if (input instanceof Long) {
+                  Long fileId = (Long) input;
+                  return fileDao.get(fileId).getConfig();
+                }
+                return null;
+              }
+            })
+        ));
+    mutators.putAll(fieldService, ImmutableList.of(
+        new MutationMethod(METHOD_SAVE,
+            new Supplier<Object[]>() {
+              @Override
+              public Object[] get() {
+                return new Object[] { field };
+              }
+            }, 0,
+            new Function<Object, ConstraintConfig>() {
+              @Override
+              public ConstraintConfig apply(Object input) {
+                if (input instanceof OutputField) {
+                  return ((OutputField) input).getFile().getConfig();
+                }
+                return null;
+              }
+            }),
+        new MutationMethod(METHOD_DELETE,
+            new Supplier<Object[]>() {
+              @Override
+              public Object[] get() {
+                return new Object[] { FIELD_1_ID };
+              }
+            }, 0,
+            new Function<Object, ConstraintConfig>() {
+              @Override
+              public ConstraintConfig apply(Object input) {
+                if (input instanceof Long) {
+                  Long fieldId = (Long) input;
+                  return fieldDao.get(fieldId).getFile().getConfig();
+                }
+                return null;
+              }
+            })
+        ));
+  }
+
+  private void resetMocks() {
+    reset(configDao, ruleDao, fileDao, fieldDao);
+
+    rule = getRule1();
+    rule.getConfig().setId(CONFIG_1_ID);
+    file = getFile1();
+    file.getConfig().setId(CONFIG_1_ID);
+    field = getField1();
+    field.getFile().setId(FILE_1_ID);
+    field.getFile().getConfig().setId(CONFIG_1_ID);
+
+    when(ruleDao.get(RULE_1_ID)).thenReturn(rule);
+    when(fileDao.get(FILE_1_ID)).thenReturn(file);
+    when(fieldDao.get(FIELD_1_ID)).thenReturn(field);
   }
 
   @Test
-  public void triggerOnMutationMethods() {
-    for (ConfigMutator mutator : mutators) {
-      Object target = mutator.getMutatorObject();
-      for (String mutationMethod : mutator.getMutationMethods().keySet()) {
-        reset(configDao);
+  public void triggerOnMutationMethods() throws Throwable {
+    for (Object target : mutators.keySet()) {
+      for (MutationMethod mutationMethod : mutators.get(target)) {
+        resetMocks();
 
-        Object[] params = mutator.getMutationMethods().get(mutationMethod);
+        String methodName = mutationMethod.getMethodName();
+        Object[] params = mutationMethod.getMethodArgs();
 
-        ConstraintConfig config = mutator.getConfigSupplier().apply(params[0]);
+        int configArgIndex = mutationMethod.getConfigArgIndex();
+        ConstraintConfig config = mutationMethod.getConfigSupplier().apply(params[configArgIndex]);
         Date modified = config.getModified();
 
-        JoinPoint joinPoint = createJoinPoint(target, mutationMethod, params);
+        when(configDao.get(CONFIG_1_ID)).thenReturn(config);
+
+        ProceedingJoinPoint joinPoint = createJoinPoint(target, methodName, params);
         tracker.saveConfigModificationDate(joinPoint);
 
         verify(configDao).save(config);
@@ -109,13 +195,23 @@ public class ConstraintConfigModificationTrackerTest extends GenericServiceTest 
   }
 
   @Test
-  public void notTriggerOnNonMutationMethods() {
-    for (ConfigMutator mutator : mutators) {
-      Object target = mutator.getMutatorObject();
-      for (String nonMutationMethod : mutator.getNonMutationMethods()) {
+  public void notTriggerOnNonMutationMethods() throws Throwable {
+    Multimap<Object, String> nonMutationMethods = ArrayListMultimap.create();
+    nonMutationMethods.putAll(configService,
+        ImmutableList.of("get", "save", METHOD_DELETE, "findAll", "getCount", "saveToBuffer",
+            "saveToString", "loadFromBuffer"));
+    nonMutationMethods.putAll(ruleService,
+        ImmutableList.of("get", "findByConfig", "checkRuleNamesForDuplicates"));
+    nonMutationMethods.putAll(fileService,
+        ImmutableList.of("get", "findByConfig", "findByParent", "checkFileNamesForDuplicates"));
+    nonMutationMethods.putAll(fieldService,
+        ImmutableList.of("get", "findByFile", "findByRule", "checkFieldNamesForDuplicates"));
+
+    for (Object target : nonMutationMethods.keySet()) {
+      for (String methodName : nonMutationMethods.get(target)) {
         reset(configDao);
 
-        JoinPoint joinPoint = createJoinPoint(target, nonMutationMethod);
+        ProceedingJoinPoint joinPoint = createJoinPoint(target, methodName);
         tracker.saveConfigModificationDate(joinPoint);
 
         verify(configDao, never()).save(any(ConstraintConfig.class));
@@ -123,8 +219,8 @@ public class ConstraintConfigModificationTrackerTest extends GenericServiceTest 
     }
   }
 
-  private JoinPoint createJoinPoint(Object target, String methodName, Object... params) {
-    JoinPoint joinPoint = mock(JoinPoint.class);
+  private ProceedingJoinPoint createJoinPoint(Object target, String methodName, Object... params) {
+    ProceedingJoinPoint joinPoint = mock(ProceedingJoinPoint.class);
 
     when(joinPoint.getTarget()).thenReturn(target);
 
@@ -137,24 +233,24 @@ public class ConstraintConfigModificationTrackerTest extends GenericServiceTest 
     return joinPoint;
   }
 
-  private static final class ConfigMutator {
+  private static final class MutationMethod {
 
-    private final Object mutatorObject;
-    private final Map<String, Object[]> mutationMethods;
-    private final List<String> nonMutationMethods;
+    private final String methodName;
+    private final Supplier<Object[]> methodArgsSupplier;
+    private final int configArgIndex;
     private final Function<Object, ConstraintConfig> configSupplier;
 
-    ConfigMutator(Object mutatorObject, Map<String, Object[]> mutationMethods,
-        List<String> nonMutationMethods, Function<Object, ConstraintConfig> configSupplier) {
-      this.mutatorObject = Preconditions.checkNotNull(mutatorObject);
-      this.mutationMethods = Preconditions.checkNotNull(mutationMethods);
-      this.nonMutationMethods = Preconditions.checkNotNull(nonMutationMethods);
+    MutationMethod(String methodName, Supplier<Object[]> methodArgsSupplier, int configArgIndex,
+        Function<Object, ConstraintConfig> configSupplier) {
+      this.methodName = Preconditions.checkNotNull(methodName);
+      this.methodArgsSupplier = Preconditions.checkNotNull(methodArgsSupplier);
+      this.configArgIndex = Preconditions.checkNotNull(configArgIndex);
       this.configSupplier = Preconditions.checkNotNull(configSupplier);
     }
 
-    public Object getMutatorObject() { return mutatorObject; }
-    public Map<String, Object[]> getMutationMethods() { return mutationMethods; }
-    public List<String> getNonMutationMethods() { return nonMutationMethods; }
+    public String getMethodName() { return methodName; }
+    public Object[] getMethodArgs() { return methodArgsSupplier.get(); }
+    public int getConfigArgIndex() { return configArgIndex; }
     public Function<Object, ConstraintConfig> getConfigSupplier() { return configSupplier; }
 
   }
