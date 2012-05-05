@@ -109,13 +109,12 @@ public class ValidationRule extends GenericDomain {
         && Objects.equal(nullable, that.nullable)
         && Objects.equal(regexp, that.regexp)
         && Objects.equal(description, that.description)
-        && Objects.equal(orderInConfig, that.orderInConfig)
-        && Objects.equal(config, that.config);
+        && Objects.equal(orderInConfig, that.orderInConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(name, nullable, regexp, description, orderInConfig, config);
+    return Objects.hashCode(name, nullable, regexp, description, orderInConfig);
   }
 
   @Override

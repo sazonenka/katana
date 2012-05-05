@@ -101,13 +101,12 @@ public class OutputFile extends GenericDomain {
     }
     OutputFile that = (OutputFile) obj;
     return Objects.equal(name, that.name)
-        && Objects.equal(orderInConfig, that.orderInConfig)
-        && Objects.equal(config, that.config);
+        && Objects.equal(orderInConfig, that.orderInConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(name, orderInConfig, config);
+    return Objects.hashCode(name, orderInConfig);
   }
 
   @Override

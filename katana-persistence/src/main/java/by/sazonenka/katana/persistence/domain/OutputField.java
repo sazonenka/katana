@@ -97,13 +97,12 @@ public class OutputField extends GenericDomain {
     }
     OutputField that = (OutputField) obj;
     return Objects.equal(name, that.name)
-        && Objects.equal(orderInFile, that.orderInFile)
-        && Objects.equal(file, that.file);
+        && Objects.equal(orderInFile, that.orderInFile);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(name, orderInFile, file);
+    return Objects.hashCode(name, orderInFile);
   }
 
   @Override
