@@ -19,8 +19,6 @@ public final class ManagerTestData {
 
   /* ConstraintConfig constants. */
 
-  public static final Long CONFIGS_COUNT = 1L;
-
   public static final Long CONFIG_1_ID = 1L;
   private static final String CONFIG_1_NAME = "config-1";
   private static final String CONFIG_1_AUTHOR = "";
@@ -54,14 +52,19 @@ public final class ManagerTestData {
 
   /* ValidationRule constants. */
 
-  public static final Long RULES_IN_CONFIG_1 = 1L;
-
   public static final Long RULE_1_ID = 1L;
   private static final String RULE_1_NAME = "rule-1";
   private static final boolean RULE_1_NULLABLE = true;
   private static final String RULE_1_REGEXP = "regexp-1";
   private static final String RULE_1_DESCRIPTION = null;
   private static final int RULE_1_ORDER_IN_CONFIG = 0;
+
+  public static final Long RULE_2_ID = 2L;
+  private static final String RULE_2_NAME = "rule-2";
+  private static final boolean RULE_2_NULLABLE = false;
+  private static final String RULE_2_REGEXP = "regexp-2";
+  private static final String RULE_2_DESCRIPTION = null;
+  private static final int RULE_2_ORDER_IN_CONFIG = 1;
 
   public static ValidationRule getRule1() {
     ValidationRule rule = getNewRule1();
@@ -72,6 +75,17 @@ public final class ManagerTestData {
   public static ValidationRule getNewRule1() {
     return new ValidationRule(RULE_1_NAME, RULE_1_NULLABLE, RULE_1_REGEXP, RULE_1_DESCRIPTION,
         RULE_1_ORDER_IN_CONFIG, getConfig1());
+  }
+
+  public static ValidationRule getRule2() {
+    ValidationRule rule = getNewRule2();
+    rule.setId(RULE_2_ID);
+    return rule;
+  }
+
+  public static ValidationRule getNewRule2() {
+    return new ValidationRule(RULE_2_NAME, RULE_2_NULLABLE, RULE_2_REGEXP, RULE_2_DESCRIPTION,
+        RULE_2_ORDER_IN_CONFIG, getConfig1());
   }
 
   public static ValidationRuleModel getRuleModel1() {
@@ -92,9 +106,25 @@ public final class ManagerTestData {
     return rule;
   }
 
-  /* OutputFile constants. */
+  public static ValidationRuleModel getRuleModel2() {
+    ValidationRuleModel rule = getNewRuleModel2();
+    rule.setId(RULE_2_ID);
+    return rule;
+  }
 
-  public static final Long FILES_IN_CONFIG_1 = 2L;
+  public static ValidationRuleModel getNewRuleModel2() {
+    ValidationRuleModel rule = new ValidationRuleModel();
+
+    rule.setName(RULE_2_NAME);
+    rule.setNullable(RULE_2_NULLABLE);
+    rule.setRegexp(RULE_2_REGEXP);
+    rule.setDescription(RULE_2_DESCRIPTION);
+    rule.setConfig(CONFIG_1_ID);
+
+    return rule;
+  }
+
+  /* OutputFile constants. */
 
   public static final Long FILE_1_ID = 1L;
   private static final String FILE_1_NAME = "file-1.csv";
@@ -103,6 +133,10 @@ public final class ManagerTestData {
   public static final Long FILE_2_ID = 2L;
   private static final String FILE_2_NAME = "file-2.csv";
   private static final int FILE_2_ORDER_IN_CONFIG = 1;
+
+  public static final Long FILE_3_ID = 3L;
+  private static final String FILE_3_NAME = "file-3.csv";
+  private static final int FILE_3_ORDER_IN_CONFIG = 2;
 
   public static OutputFile getFile1() {
     OutputFile file = getNewFile1();
@@ -122,6 +156,16 @@ public final class ManagerTestData {
 
   public static OutputFile getNewFile2() {
     return new OutputFile(FILE_2_NAME, FILE_2_ORDER_IN_CONFIG, getFile1(), getConfig1());
+  }
+
+  public static OutputFile getFile3() {
+    OutputFile file = getNewFile3();
+    file.setId(FILE_3_ID);
+    return file;
+  }
+
+  public static OutputFile getNewFile3() {
+    return new OutputFile(FILE_3_NAME, FILE_3_ORDER_IN_CONFIG, getFile1(), getConfig1());
   }
 
   public static OutputFileModel getFileModel1() {
@@ -156,19 +200,31 @@ public final class ManagerTestData {
     return file;
   }
 
-  /* OutputField constants. */
+  public static OutputFileModel getFileModel3() {
+    OutputFileModel file = getNewFileModel3();
+    file.setId(FILE_3_ID);
+    return file;
+  }
 
-  public static final Long FIELDS_IN_FILE_1 = 1L;
+  public static OutputFileModel getNewFileModel3() {
+    OutputFileModel file = new OutputFileModel();
+
+    file.setName(FILE_3_NAME);
+    file.setConfig(CONFIG_1_ID);
+    file.setParentFile(FILE_1_NAME);
+
+    return file;
+  }
+
+  /* OutputField constants. */
 
   public static final Long FIELD_1_ID = 1L;
   private static final String FIELD_1_NAME = "field-1";
   private static final int FIELD_1_ORDER_IN_FILE = 0;
 
-  public static final Long FIELDS_IN_FILE_2 = 1L;
-
   public static final Long FIELD_2_ID = 2L;
   private static final String FIELD_2_NAME = "field-2";
-  private static final int FIELD_2_ORDER_IN_FILE = 0;
+  private static final int FIELD_2_ORDER_IN_FILE = 1;
 
   public static OutputField getField1() {
     OutputField field = getNewField1();
