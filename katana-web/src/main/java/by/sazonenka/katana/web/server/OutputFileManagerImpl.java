@@ -112,13 +112,15 @@ public final class OutputFileManagerImpl
       OutputFile parent = fileService.get(parentId);
       for (Long id : ids) {
         List<OutputFile> filesThatExtendCurrent = fileService.findByParent(id);
-        if (filesThatExtendCurrent == null || filesThatExtendCurrent.isEmpty()) {
-          OutputFile file = fileService.get(id);
-          file.setParent(parent);
-          fileService.save(file);
-        } else {
+        if (filesThatExtendCurrent != null && !filesThatExtendCurrent.isEmpty()) {
           return false;
         }
+      }
+
+      for (Long id : ids) {
+        OutputFile file = fileService.get(id);
+        file.setParent(parent);
+        fileService.save(file);
       }
       return true;
     } catch (Throwable e) {
