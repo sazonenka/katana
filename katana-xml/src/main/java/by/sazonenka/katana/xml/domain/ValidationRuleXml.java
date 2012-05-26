@@ -56,6 +56,16 @@ public final class ValidationRuleXml {
     return Objects.hashCode(id, nullable, regexp, description);
   }
 
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this)
+        .add("id", id)
+        .add("nullable", nullable)
+        .add("regexp", regexp)
+        .add("description", description)
+        .toString();
+  }
+
   /** Returns the value of the <b>id</b> attribute. */
   public String getId() { return id; }
   /** Sets the value of the <b>id</b> attribute. */

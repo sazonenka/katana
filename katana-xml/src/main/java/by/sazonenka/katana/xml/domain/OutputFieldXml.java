@@ -45,6 +45,14 @@ public final class OutputFieldXml {
     return Objects.hashCode(name, rule);
   }
 
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this)
+        .add("name", name)
+        .add("rule", rule)
+        .toString();
+  }
+
   /** Returns the value of the <b>name</b> attribute. */
   public String getName() { return name; }
   /** Sets the value of the <b>name</b> attribute. */

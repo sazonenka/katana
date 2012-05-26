@@ -48,17 +48,17 @@
   </logger>
 
   <logger name="org.springframework" additivity="false">
-    <level value="DEBUG"/>
+    <level value="OFF"/>
     <appender-ref ref="persistenceAppender"/>
   </logger>
 
   <logger name="org.hibernate" additivity="false">
-    <level value="INFO"/>
+    <level value="OFF"/>
     <appender-ref ref="persistenceAppender"/>
   </logger>
 
   <logger name="org.hibernate.SQL" additivity="false">
-    <level value="DEBUG"/>
+    <level value="OFF"/>
     <appender-ref ref="sqlAppender"/>
   </logger>
 

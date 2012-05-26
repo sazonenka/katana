@@ -10,10 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import by.sazonenka.katana.xml.domain.ConstraintConfigXml;
-
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
+
+import by.sazonenka.katana.xml.domain.ConstraintConfigXml;
 
 /**
  * Implements saving and loading {@link ConstraintConfigXml}s.
@@ -41,14 +41,14 @@ public final class XmlPersisterImpl implements XmlPersister {
 
     try {
       ByteArrayOutputStream bufferOutputStream = new ByteArrayOutputStream();
-      LOG.debug("Prepare to write the constraint config to a byte array.");
+      LOG.debug("Prepare to write the constraint config {} to a byte array.", config);
 
       serializer.write(config, bufferOutputStream);
-      LOG.debug("Constraint config was written successfully.");
+      LOG.debug("Constraint config {} was written successfully.", config);
 
       return bufferOutputStream.toByteArray();
     } catch (Exception e) {
-      LOG.error("Failed to write the constraint config to a byte array.", e);
+      LOG.error("Failed to write the constraint config {} to a byte array.", config, e);
       throw new XmlPersisterException("Failed to write the constraint config to a byte array.", e);
     }
   }
@@ -59,14 +59,14 @@ public final class XmlPersisterImpl implements XmlPersister {
 
     try {
       StringWriter buffer = new StringWriter();
-      LOG.debug("Prepare to write the constraint config to a string.");
+      LOG.debug("Prepare to write the constraint config {} to a string.", config);
 
       serializer.write(config, buffer);
-      LOG.debug("Constraint config was written successfully.");
+      LOG.debug("Constraint config {} was written successfully.", config);
 
       return buffer.toString();
     } catch (Exception e) {
-      LOG.error("Failed to write the constraint config to a string.", e);
+      LOG.error("Failed to write the constraint config {} to a string.", config, e);
       throw new XmlPersisterException("Failed to write the constraint config to a string.", e);
     }
   }
@@ -80,7 +80,7 @@ public final class XmlPersisterImpl implements XmlPersister {
 
       if (serializer.validate(ConstraintConfigXml.class, bufferAsString)) {
         ConstraintConfigXml config = serializer.read(ConstraintConfigXml.class, bufferAsString);
-        LOG.debug("Constraint config was loaded successfully.");
+        LOG.debug("Constraint config {} was loaded successfully.", config);
 
         return config;
       } else {

@@ -36,17 +36,17 @@
   </logger>
 
   <logger name="org.springframework" additivity="false">
-    <level value="OFF"/>
+    <level value="ERROR"/>
     <appender-ref ref="masterAppender"/>
   </logger>
 
   <logger name="org.hibernate" additivity="false">
-    <level value="OFF"/>
+    <level value="ERROR"/>
     <appender-ref ref="masterAppender"/>
   </logger>
 
   <logger name="org.dozer" additivity="false">
-    <level value="OFF"/>
+    <level value="ERROR"/>
     <appender-ref ref="masterAppender"/>
   </logger>
 

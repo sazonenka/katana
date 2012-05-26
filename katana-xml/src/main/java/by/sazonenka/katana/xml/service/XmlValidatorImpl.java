@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+
 import by.sazonenka.katana.xml.domain.ConstraintConfigXml;
 import by.sazonenka.katana.xml.domain.ExtendsXml;
 import by.sazonenka.katana.xml.domain.OutputFieldXml;
 import by.sazonenka.katana.xml.domain.OutputFileXml;
 import by.sazonenka.katana.xml.domain.ValidationRuleXml;
-
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 /**
  * @author Aliaksandr Sazonenka
@@ -41,7 +41,8 @@ public final class XmlValidatorImpl implements XmlValidator {
         }
       });
     } catch (IllegalArgumentException e) {
-      throw new XmlValidatorException(""); // TODO: provide a message
+      throw new XmlValidatorException("Uniqueness of rule names is violated (" +
+          e.getMessage() + ")");
     }
   }
 
@@ -56,7 +57,8 @@ public final class XmlValidatorImpl implements XmlValidator {
         }
       });
     } catch (IllegalArgumentException e) {
-      throw new XmlValidatorException("");
+      throw new XmlValidatorException("Uniqueness of file names is violated (" +
+          e.getMessage() + ")");
     }
   }
 
@@ -77,7 +79,8 @@ public final class XmlValidatorImpl implements XmlValidator {
           }
         });
       } catch (IllegalArgumentException e) {
-        throw new XmlValidatorException("");
+        throw new XmlValidatorException("Uniqueness of field names for the file " +
+            file.getName() + " is violated (" + e.getMessage() + ")");
       }
     }
   }
@@ -91,7 +94,8 @@ public final class XmlValidatorImpl implements XmlValidator {
           public String apply(ValidationRuleXml rule) {
             return rule.getId();
           }
-        });
+        }); // We're sure that IllegalArgumentException will not arise
+            // because checkRuleNamesForDuplicates() is called earlier.
 
     ArrayList<OutputFileXml> files = configXml.getOutputFiles();
     for (OutputFileXml file : files) {
@@ -103,7 +107,8 @@ public final class XmlValidatorImpl implements XmlValidator {
       for (OutputFieldXml field : fields) {
         String ruleName = field.getRule();
         if (ruleName != null && !ruleNameIndex.containsKey(ruleName)) {
-          throw new XmlValidatorException("");
+          throw new XmlValidatorException("The field " + field.getName() +
+              " refers to the rule " + ruleName + " which doesn't exist.");
         }
       }
     }
@@ -118,15 +123,21 @@ public final class XmlValidatorImpl implements XmlValidator {
           public String apply(OutputFileXml file) {
             return file.getName();
           }
-        });
+        }); // We're sure that IllegalArgumentException will not arise
+            // because checkFileNamesForDuplicates() is called earlier.
 
     for (OutputFileXml file : files) {
       String fileName = file.getName();
-      ExtendsXml parentFile = file.getExtendsFile();
-      if (parentFile != null) {
-        String parentFileName = parentFile.getFile();
-        if (fileName.equals(parentFileName) || !fileNameIndex.containsKey(parentFileName)) {
-          throw new XmlValidatorException("");
+      ExtendsXml extendsFile = file.getExtendsFile();
+      if (extendsFile != null) {
+        String parentFileName = extendsFile.getFile();
+
+        if (fileName.equals(parentFileName)) {
+          throw new XmlValidatorException("The file " + fileName + " refers to itself.");
+        }
+        if (!fileNameIndex.containsKey(parentFileName)) {
+          throw new XmlValidatorException("The file " + fileName +
+              " refers to the file " + parentFileName + " which doesn't exist.");
         }
       }
     }
@@ -141,7 +152,8 @@ public final class XmlValidatorImpl implements XmlValidator {
           public String apply(OutputFileXml file) {
             return file.getName();
           }
-        });
+        }); // We're sure that IllegalArgumentException will not arise
+            // because checkFileNamesForDuplicates() is called earlier.
 
     for (OutputFileXml file : files) {
       ExtendsXml extendsFile = file.getExtendsFile();
@@ -150,7 +162,11 @@ public final class XmlValidatorImpl implements XmlValidator {
         OutputFileXml parentFile = fileNameIndex.get(parentFileName);
 
         if (parentFile.getExtendsFile() != null) {
-          throw new XmlValidatorException("");
+          String grandParentFileName = parentFile.getExtendsFile().getFile();
+          throw new XmlValidatorException("The file " + file.getName() +
+              " refers to the file " + parentFileName +
+              " which, in turn, refers to the file " + grandParentFileName + "." +
+              " Such kind of relationships is forbidden.");
         }
       }
     }

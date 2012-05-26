@@ -42,6 +42,13 @@ public final class ExtendsXml {
     return Objects.hashCode(file);
   }
 
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this)
+        .add("file", file)
+        .toString();
+  }
+
   /** Returns the value of the <b>file</b> attribute. */
   public String getFile() { return file; }
   /** Sets the value of the <b>file</b> attribute. */

@@ -55,6 +55,13 @@ public final class ConstraintConfigXml {
     return Objects.hashCode(id, validationRules, outputFiles);
   }
 
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this)
+        .add("id", id)
+        .toString();
+  }
+
   /** Returns the value of the <b>id</b> attribute. */
   public String getId() { return id; }
   /** Sets the value of the <b>id</b> attribute. */

@@ -60,6 +60,13 @@ public final class OutputFileXml {
     return Objects.hashCode(name, extendsFile, fields);
   }
 
+  @Override
+  public String toString() {
+    return Objects.toStringHelper(this)
+        .add("name", name)
+        .toString();
+  }
+
   /** Returns the value of the <b>name</b> attribute. */
   public String getName() { return name; }
   /** Sets the value of the <b>name</b> attribute. */
