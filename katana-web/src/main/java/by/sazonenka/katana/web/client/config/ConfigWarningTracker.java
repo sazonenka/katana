@@ -2,12 +2,6 @@ package by.sazonenka.katana.web.client.config;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import by.sazonenka.katana.web.client.events.util.GenericAsyncCallback;
-import by.sazonenka.katana.web.client.managers.ConstraintConfigManagerAsync;
-import by.sazonenka.katana.web.client.resources.Icons;
-
 import com.extjs.gxt.ui.client.Style.HideMode;
 import com.extjs.gxt.ui.client.core.El;
 import com.google.common.base.Joiner;
@@ -15,7 +9,12 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
+import by.sazonenka.katana.web.client.events.util.GenericAsyncCallback;
+import by.sazonenka.katana.web.client.managers.ConstraintConfigManagerAsync;
+import by.sazonenka.katana.web.client.resources.Icons;
 
 @Singleton
 public final class ConfigWarningTracker {

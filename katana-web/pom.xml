@@ -19,7 +19,7 @@
   <properties>
     <configs.location>${project.parent.basedir}/configs</configs.location>
     <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-    
+
     <commons-fileupload.version>1.2.2</commons-fileupload.version>
 
     <com.google.gwt.version>2.4.0</com.google.gwt.version>
@@ -54,8 +54,8 @@
           </execution>
         </executions>
         <configuration>
-          <draftCompile>true</draftCompile>
-          <runTarget>config.htm?id=1</runTarget>
+          <optimizationLevel>9</optimizationLevel>
+          <runTarget>directory.htm</runTarget>
         </configuration>
       </plugin>
       <plugin>
