@@ -1,5 +1,6 @@
 package by.sazonenka.katana.persistence.converter;
 
+import static by.sazonenka.katana.persistence.converter.XmlConverterTestData.createConfigXml;
 import static by.sazonenka.katana.persistence.service.ServiceTestData.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -47,7 +48,7 @@ public class XmlConverterTest {
   @Test
   public void testLoadConfigXml() {
     // Given
-    ConstraintConfigXml configXml = XmlConverterTestData.createConfigXml();
+    ConstraintConfigXml configXml = createConfigXml();
     ConstraintConfig config = getConfig1();
 
     List<ValidationRule> rules = Lists.newArrayList(getRule1());
@@ -68,13 +69,6 @@ public class XmlConverterTest {
     when(fieldDao.findByFile(file2)).thenReturn(fieldsInFile2);
     // Run
     ConstraintConfigXml actualConfig = xmlConverter.loadConfigXml(CONFIG_1_ID);
-    // Verify
-    InOrder inOrder = inOrder(configDao, ruleDao, fileDao, fieldDao);
-    inOrder.verify(configDao).get(CONFIG_1_ID);
-    inOrder.verify(ruleDao).findByConfig(config);
-    inOrder.verify(fileDao).findByConfig(config);
-    inOrder.verify(fieldDao).findByFile(file1);
-    inOrder.verify(fieldDao).findByFile(file2);
     // Assert
     assertThat(actualConfig, is(configXml));
   }
@@ -82,7 +76,7 @@ public class XmlConverterTest {
   @Test
   public void testSaveConfigXml() {
     // Given
-    ConstraintConfigXml configXml = XmlConverterTestData.createConfigXml();
+    ConstraintConfigXml configXml = createConfigXml();
     ConstraintConfig config = getConfig1();
 
     ValidationRule rule1 = getRule1();

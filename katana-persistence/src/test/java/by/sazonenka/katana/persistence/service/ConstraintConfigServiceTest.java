@@ -1,5 +1,6 @@
 package by.sazonenka.katana.persistence.service;
 
+import static by.sazonenka.katana.persistence.converter.XmlConverterTestData.createConfigXml;
 import static by.sazonenka.katana.persistence.service.ServiceTestData.*;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -10,7 +11,6 @@ import java.util.List;
 import org.junit.Test;
 import org.mockito.InOrder;
 
-import by.sazonenka.katana.persistence.converter.XmlConverterTestData;
 import by.sazonenka.katana.persistence.domain.ConstraintConfig;
 import by.sazonenka.katana.xml.domain.ConstraintConfigXml;
 import by.sazonenka.katana.xml.service.XmlPersisterException;
@@ -94,7 +94,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   @Test
   public void testSaveToBuffer() throws XmlPersisterException {
     // Given
-    ConstraintConfigXml configXml = XmlConverterTestData.createConfigXml();
+    ConstraintConfigXml configXml = createConfigXml();
     byte[] expectedBuffer = {1, 2, 3};
     // Expect
     when(xmlConverter.loadConfigXml(CONFIG_1_ID)).thenReturn(configXml);
@@ -112,7 +112,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   @Test
   public void testSaveToString() throws XmlPersisterException {
     // Given
-    ConstraintConfigXml configXml = XmlConverterTestData.createConfigXml();
+    ConstraintConfigXml configXml = createConfigXml();
     String expectedString = "1 2 3";
     // Expect
     when(xmlConverter.loadConfigXml(CONFIG_1_ID)).thenReturn(configXml);
@@ -130,7 +130,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   @Test
   public void testLoadFromBuffer() throws XmlPersisterException, XmlValidatorException {
     // Given
-    ConstraintConfigXml configXml = XmlConverterTestData.createConfigXml();
+    ConstraintConfigXml configXml = createConfigXml();
     byte[] bufferToLoad = {1, 2, 3};
     // Expect
     when(xmlPersister.loadFromBuffer(bufferToLoad)).thenReturn(configXml);
