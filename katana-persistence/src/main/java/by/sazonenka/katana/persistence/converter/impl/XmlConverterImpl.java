@@ -9,6 +9,12 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+
 import by.sazonenka.katana.persistence.converter.XmlConverter;
 import by.sazonenka.katana.persistence.dao.ConstraintConfigDao;
 import by.sazonenka.katana.persistence.dao.OutputFieldDao;
@@ -23,12 +29,6 @@ import by.sazonenka.katana.xml.domain.ExtendsXml;
 import by.sazonenka.katana.xml.domain.OutputFieldXml;
 import by.sazonenka.katana.xml.domain.OutputFileXml;
 import by.sazonenka.katana.xml.domain.ValidationRuleXml;
-
-import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 
 /**
  * @author Aliaksandr Sazonenka
@@ -132,7 +132,7 @@ public final class XmlConverterImpl implements XmlConverter {
     Preconditions.checkNotNull(configXml, "Got unexpected null 'configXml' passed to the method.");
 
     ConstraintConfig config = new ConstraintConfig(configXml.getId(), "", new Date());
-    config = configDao.save(config); // TODO: configDao.save(config);
+    configDao.save(config);
 
     saveRules(configXml, config);
     saveFiles(configXml, config);
