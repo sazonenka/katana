@@ -3,11 +3,6 @@ package by.sazonenka.katana.web.client.directory;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.sazonenka.katana.web.client.events.ConstraintConfigFocus;
-import by.sazonenka.katana.web.client.events.ConstraintConfigLoad;
-import by.sazonenka.katana.web.client.resources.Icons;
-import by.sazonenka.katana.web.model.ConstraintConfigModel;
-
 import com.extjs.gxt.ui.client.Style.SelectionMode;
 import com.extjs.gxt.ui.client.data.BaseListLoader;
 import com.extjs.gxt.ui.client.data.ListLoadResult;
@@ -31,6 +26,11 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+
+import by.sazonenka.katana.web.client.events.ConstraintConfigFocus;
+import by.sazonenka.katana.web.client.events.ConstraintConfigLoad;
+import by.sazonenka.katana.web.client.resources.Icons;
+import by.sazonenka.katana.web.model.ConstraintConfigModel;
 
 /**
  * @author Aliaksandr Sazonenka
@@ -90,6 +90,7 @@ public final class DirectoryGrid extends LayoutContainer {
     grid.setBorders(true);
     grid.setColumnLines(true);
     grid.setColumnResize(false);
+    grid.getView().setForceFit(true);
     grid.setHeight(600);
 
     grid.setSelectionModel(new GridSelectionModel<ConstraintConfigModel>() {
