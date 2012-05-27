@@ -18,6 +18,8 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.google.common.collect.Lists;
+
 import by.sazonenka.katana.persistence.dao.ConstraintConfigDao;
 import by.sazonenka.katana.persistence.dao.OutputFieldDao;
 import by.sazonenka.katana.persistence.dao.OutputFileDao;
@@ -28,13 +30,11 @@ import by.sazonenka.katana.persistence.domain.OutputFile;
 import by.sazonenka.katana.persistence.domain.ValidationRule;
 import by.sazonenka.katana.xml.domain.ConstraintConfigXml;
 
-import com.google.common.collect.Lists;
-
 /**
  * @author Aliaksandr Sazonenka
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "/spring-converter-test.xml", "/spring-converter.xml" })
+@ContextConfiguration({"/spring/spring-converter-test.xml", "/spring/spring-converter.xml"})
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class XmlConverterTest {
 

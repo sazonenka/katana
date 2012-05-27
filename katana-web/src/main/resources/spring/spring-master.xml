@@ -4,10 +4,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-  <import resource="classpath*:spring-dao.xml"/>
-  <import resource="classpath*:spring-converter.xml"/>
-  <import resource="classpath*:spring-service.xml"/>
-  <import resource="classpath*:spring-xml.xml"/>
-  <import resource="classpath*:spring-interceptor.xml"/>
+  <import resource="classpath*:spring/spring-dao.xml"/>
+  <import resource="classpath*:spring/spring-converter.xml"/>
+  <import resource="classpath*:spring/spring-service.xml"/>
+  <import resource="classpath*:spring/spring-xml.xml"/>
+  <import resource="classpath*:spring/spring-interceptor.xml"/>
 
 </beans>

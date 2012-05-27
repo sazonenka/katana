@@ -19,7 +19,7 @@ import by.sazonenka.katana.xml.domain.ConstraintConfigXml;
  * @author Aliaksandr Sazonenka
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "/spring-xml.xml" })
+@ContextConfiguration({"/spring/spring-xml.xml"})
 public class XmlPersisterTest {
 
   @Inject XmlPersister persister;

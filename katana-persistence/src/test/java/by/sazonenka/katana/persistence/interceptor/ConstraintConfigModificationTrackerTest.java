@@ -31,7 +31,7 @@ import by.sazonenka.katana.persistence.service.GenericServiceTest;
 /**
  * @author Aliaksandr Sazonenka
  */
-@ContextConfiguration({ "/spring-interceptor.xml" })
+@ContextConfiguration({"/spring/spring-interceptor.xml"})
 public class ConstraintConfigModificationTrackerTest extends GenericServiceTest {
 
   private static final String METHOD_SAVE = "save";

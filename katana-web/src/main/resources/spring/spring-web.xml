@@ -28,7 +28,7 @@
   </bean>
 
   <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-    <property name="mappingFiles" value="classpath*:/dozer-mapping.xml"/>
+    <property name="mappingFiles" value="classpath*:/dozer/dozer-mapping.xml"/>
   </bean>
 
   <bean class="com.google.gson.Gson" />

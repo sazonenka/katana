@@ -32,7 +32,7 @@ import by.sazonenka.katana.xml.service.XmlValidatorException;
  * @author Aliaksandr Sazonenka
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "/spring-web-test.xml", "/spring-web.xml" })
+@ContextConfiguration({"/spring/spring-web-test.xml", "/spring/spring-web.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ApplicationControllerTest {
 

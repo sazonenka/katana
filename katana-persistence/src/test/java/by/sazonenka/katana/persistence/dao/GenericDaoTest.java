@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Aliaksandr Sazonenka
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "/spring-dao.xml", "/spring-dao-test.xml" })
+@ContextConfiguration({"/spring/spring-dao.xml", "/spring/spring-dao-test.xml"})
 @Transactional
 public abstract class GenericDaoTest {
 
@@ -54,8 +54,7 @@ public abstract class GenericDaoTest {
 
   @SuppressWarnings("unchecked")
   private <T> List<T> queryForList(DomainMapping mapping, String paramColumn, Object paramValue) {
-    String sql = String.format("SELECT * FROM %s WHERE %s = ?",
-        mapping.tableName, paramColumn);
+    String sql = String.format("SELECT * FROM %s WHERE %s = ?", mapping.tableName, paramColumn);
     return (List<T>) jdbcTemplate.query(sql, mapping.mapper, paramValue);
   }
 
