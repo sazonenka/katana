@@ -24,7 +24,7 @@ import com.google.common.collect.Lists;
 public class ConstraintConfigServiceTest extends GenericServiceTest {
 
   @Test
-  public void testGet() {
+  public void get() {
     // Given
     ConstraintConfig config = getConfig1();
     // Expect
@@ -38,7 +38,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSave() {
+  public void save() {
     // Given
     ConstraintConfig config = getConfig1();
     // Expect
@@ -52,7 +52,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testDelete() {
+  public void delete() {
     // Given
     ConstraintConfig config = getConfig1();
     // Expect
@@ -66,7 +66,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testFindAllConfigs() {
+  public void findAllConfigs() {
     // Given
     List<ConstraintConfig> configs = Lists.newArrayList(getConfig1(), getConfig1(), getConfig1());
     // Expect
@@ -80,7 +80,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testGetConfigCount() {
+  public void getConfigCount() {
     // Expect
     when(configDao.getCount()).thenReturn(CONFIGS_COUNT);
     // Run
@@ -92,7 +92,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveToBuffer() throws XmlPersisterException {
+  public void saveToBuffer() throws XmlPersisterException {
     // Given
     ConstraintConfigXml configXml = createConfigXml();
     byte[] expectedBuffer = {1, 2, 3};
@@ -110,7 +110,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveToString() throws XmlPersisterException {
+  public void saveToString() throws XmlPersisterException {
     // Given
     ConstraintConfigXml configXml = createConfigXml();
     String expectedString = "1 2 3";
@@ -128,7 +128,7 @@ public class ConstraintConfigServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testLoadFromBuffer() throws XmlPersisterException, XmlValidatorException {
+  public void loadFromBuffer() throws XmlPersisterException, XmlValidatorException {
     // Given
     ConstraintConfigXml configXml = createConfigXml();
     byte[] bufferToLoad = {1, 2, 3};

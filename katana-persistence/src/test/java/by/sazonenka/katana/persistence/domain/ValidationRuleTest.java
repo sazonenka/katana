@@ -1,7 +1,7 @@
 package by.sazonenka.katana.persistence.domain;
 
 import static by.sazonenka.katana.persistence.domain.DomainTestData.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**

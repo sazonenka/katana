@@ -1,7 +1,8 @@
 package by.sazonenka.katana.web;
 
 import static by.sazonenka.katana.web.server.ManagerTestData.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 

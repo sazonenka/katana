@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
 public class OutputFieldServiceTest extends GenericServiceTest {
 
   @Test
-  public void testGet() {
+  public void get() {
     // Given
     OutputField field = getField1();
     // Expect
@@ -37,7 +37,7 @@ public class OutputFieldServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveNewField() {
+  public void saveNewField() {
     // Given
     OutputField field = getField1();
     OutputFile file = field.getFile();
@@ -59,7 +59,7 @@ public class OutputFieldServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveExistingField() {
+  public void saveExistingField() {
     // Given
     OutputField field = getField1();
     field.setId(FIELD_1_ID);
@@ -77,7 +77,7 @@ public class OutputFieldServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testDelete() {
+  public void delete() {
     // Given
     OutputField fieldToDelete = getField1();
     OutputFile file = fieldToDelete.getFile();
@@ -104,7 +104,7 @@ public class OutputFieldServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testFindByFile() {
+  public void findByFile() {
     // Given
     OutputFile file = getFile1();
     List<OutputField> fields = Lists.newArrayList(getField1(), getField1(), getField1());
@@ -122,7 +122,7 @@ public class OutputFieldServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testFindByRule() {
+  public void findByRule() {
     // Given
     ValidationRule rule = getRule1();
     List<OutputField> fields = Lists.newArrayList(getField1(), getField1(), getField1());
@@ -140,7 +140,7 @@ public class OutputFieldServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testNameDuplicatesFound() {
+  public void nameDuplicatesFound() {
     // Given
     OutputFile file = getFile1();
     ConstraintConfig config = file.getConfig();
@@ -163,7 +163,7 @@ public class OutputFieldServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testNameDuplicatesNotFound() {
+  public void nameDuplicatesNotFound() {
     // Given
     OutputFile file = getFile1();
     ConstraintConfig config = file.getConfig();

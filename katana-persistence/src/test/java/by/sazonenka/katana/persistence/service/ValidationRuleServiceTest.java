@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
 public class ValidationRuleServiceTest extends GenericServiceTest {
 
   @Test
-  public void testGet() {
+  public void get() {
     // Given
     ValidationRule rule = getRule1();
     // Expect
@@ -35,7 +35,7 @@ public class ValidationRuleServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveNewRule() {
+  public void saveNewRule() {
     // Given
     ValidationRule rule = getRule1();
     ConstraintConfig config = rule.getConfig();
@@ -57,7 +57,7 @@ public class ValidationRuleServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveExistingRule() {
+  public void saveExistingRule() {
    // Given
     ValidationRule rule = getRule1();
     rule.setId(RULE_1_ID);
@@ -75,7 +75,7 @@ public class ValidationRuleServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testDelete() {
+  public void delete() {
     // Given
     ValidationRule ruleToDelete = getRule1();
     ConstraintConfig config = ruleToDelete.getConfig();
@@ -102,7 +102,7 @@ public class ValidationRuleServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testFindByConfig() {
+  public void findByConfig() {
     // Given
     ConstraintConfig config = getConfig1();
     List<ValidationRule> rules = Lists.newArrayList(getRule1(), getRule1(), getRule1());
@@ -120,7 +120,7 @@ public class ValidationRuleServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testNameDuplicatesFound() {
+  public void nameDuplicatesFound() {
     // Given
     ConstraintConfig config = getConfig1();
     List<ValidationRule> rules = Lists.newArrayList(getRule1(), getRule1());
@@ -138,7 +138,7 @@ public class ValidationRuleServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testNameDuplicatesNotFound() {
+  public void nameDuplicatesNotFound() {
     // Given
     ConstraintConfig config = getConfig1();
 

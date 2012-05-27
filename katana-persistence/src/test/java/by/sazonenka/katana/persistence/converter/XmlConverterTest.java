@@ -46,7 +46,7 @@ public class XmlConverterTest {
   @Inject private XmlConverter xmlConverter;
 
   @Test
-  public void testLoadConfigXml() {
+  public void loadConfigXml() {
     // Given
     ConstraintConfigXml configXml = createConfigXml();
     ConstraintConfig config = getConfig1();
@@ -74,7 +74,7 @@ public class XmlConverterTest {
   }
 
   @Test
-  public void testSaveConfigXml() {
+  public void saveConfigXml() {
     // Given
     ConstraintConfigXml configXml = createConfigXml();
     ConstraintConfig config = getConfig1();

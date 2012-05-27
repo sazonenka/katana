@@ -1,7 +1,10 @@
 package by.sazonenka.katana.persistence.domain;
 
 import static by.sazonenka.katana.persistence.domain.DomainTestData.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
 import java.util.Date;
@@ -41,7 +44,7 @@ public class ConstraintConfigTest extends GenericDomainTest<ConstraintConfig> {
   protected void checkAssociationSetters() { /* ConstraintConfig has no association setters. */ }
 
   @Test
-  public void testModifiedDefensiveCopy() {
+  public void modifiedIsCopiedDefensively() {
     ConstraintConfig config = new ConstraintConfig(NAME_1, AUTHOR_1, MODIFIED_1);
     Date copyOne = config.getModified();
     Date copyTwo = config.getModified();

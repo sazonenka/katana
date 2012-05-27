@@ -21,7 +21,7 @@ import com.google.common.collect.Lists;
 public class OutputFileServiceTest extends GenericServiceTest {
 
   @Test
-  public void testGet() {
+  public void get() {
     // Given
     OutputFile file = getFile1();
     // Expect
@@ -35,7 +35,7 @@ public class OutputFileServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveNewFile() {
+  public void saveNewFile() {
     // Given
     OutputFile file = getFile1();
     ConstraintConfig config = file.getConfig();
@@ -57,7 +57,7 @@ public class OutputFileServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testSaveExistingFile() {
+  public void saveExistingFile() {
     // Given
     OutputFile file = getFile1();
     file.setId(FILE_1_ID);
@@ -75,7 +75,7 @@ public class OutputFileServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testDelete() {
+  public void delete() {
     // Given
     OutputFile fileToDelete = getFile1();
     ConstraintConfig config = fileToDelete.getConfig();
@@ -102,7 +102,7 @@ public class OutputFileServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testFindByConfig() {
+  public void findByConfig() {
     // Given
     ConstraintConfig config = getConfig1();
     List<OutputFile> files = Lists.newArrayList(getFile1(), getFile1(), getFile1());
@@ -120,7 +120,7 @@ public class OutputFileServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testFindByParent() {
+  public void findByParent() {
     // Given
     OutputFile parent = getFile1();
     List<OutputFile> files = Lists.newArrayList(getFile1(), getFile1(), getFile1());
@@ -138,7 +138,7 @@ public class OutputFileServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testNameDuplicatesFound() {
+  public void nameDuplicatesFound() {
     // Given
     ConstraintConfig config = getConfig1();
     List<OutputFile> files = Lists.newArrayList(getFile1(), getFile1());
@@ -156,7 +156,7 @@ public class OutputFileServiceTest extends GenericServiceTest {
   }
 
   @Test
-  public void testNameDuplicatesNotFound() {
+  public void nameDuplicatesNotFound() {
     // Given
     ConstraintConfig config = getConfig1();
 

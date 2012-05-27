@@ -1,7 +1,7 @@
 package by.sazonenka.katana.xml.service;
 
 import static by.sazonenka.katana.xml.service.ServiceTestData.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;

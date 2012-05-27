@@ -1,6 +1,9 @@
 package by.sazonenka.katana.persistence.domain;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasToString;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
@@ -24,12 +27,12 @@ public abstract class GenericDomainTest<M extends GenericDomain> {
   protected abstract void initModels();
 
   @Test
-  public void testConstructor() {
+  public void constructorIsNotBroken() {
     checkBasicProperties(modelEqual);
   }
 
   @Test
-  public void testBasicSetters() {
+  public void basicSettersAreNotBroken() {
     updateModelNotEqual();
     checkBasicProperties(modelNotEqual);
   }
@@ -38,14 +41,14 @@ public abstract class GenericDomainTest<M extends GenericDomain> {
   protected abstract void checkBasicProperties(M modelToCheck);
 
   @Test
-  public void testAssociationSetters() {
+  public void associationSettersAreNotBroken() {
     checkAssociationSetters();
   }
 
   protected abstract void checkAssociationSetters();
 
   @Test
-  public void testEquals() {
+  public void equalsIsNotBroken() {
     assertThat("Current implementation of the equals() method is not reflective.\n"
         + "x.equals(x) must return true.",
         model, is(model));
@@ -63,7 +66,7 @@ public abstract class GenericDomainTest<M extends GenericDomain> {
   }
 
   @Test
-  public void testHashCode() {
+  public void hashCodeIsNotBroken() {
     assertThat("Whenever it is invoked on the same object, "
         + "the hashCode method must consistently return the same integer.",
         model.hashCode(), is(model.hashCode()));
@@ -73,7 +76,7 @@ public abstract class GenericDomainTest<M extends GenericDomain> {
   }
 
   @Test
-  public void testToString() {
+  public void toStringIsNotBroken() {
     assertThat("String representation of the model should not be null.",
         model, hasToString(notNullValue(String.class)));
     assertThat("String representation of the model should not be empty.",
