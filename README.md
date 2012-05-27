@@ -1,6 +1,6 @@
 ## Overview
 
-**Katana** is a web-based editor for constraint configs, formerly stored in XML files.
+**katana** is a web-based editor for constraint configs, formerly stored in XML files.
 
 ## Tools
 
@@ -24,7 +24,7 @@ for your particular DB environment.
 
 ## Running locally
 
-Execute the following command on the root level to build the entire project:
+Execute the following command on the **root** level to build the entire project:
 
     mvn clean install
 
@@ -32,7 +32,7 @@ Execute the following command on **katana-web** level to run the application:
 
     mvn tomcat:run-war
 
-Point your browser to http://localhost:8080/katana
+Point your browser to `http://localhost:8080/katana`
 
 ## Supported browsers
 
