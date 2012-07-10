@@ -38,3 +38,9 @@ Point your browser to `http://localhost:8080/katana`
 
 + Firefox
 + Chrome
+
+## TODO
+
+1. Move from Maven to Gradle
+2. Integrate [spring-data-jpa](http://www.springsource.org/spring-data/jpa)
+3. Integrate [gwt-test-utils](http://code.google.com/p/gwt-test-utils)
