@@ -45,6 +45,11 @@
     <appender-ref ref="masterAppender"/>
   </logger>
 
+  <logger name="com.jolbox" additivity="false">
+    <level value="ERROR"/>
+    <appender-ref ref="masterAppender"/>
+  </logger>
+
   <logger name="org.dozer" additivity="false">
     <level value="ERROR"/>
     <appender-ref ref="masterAppender"/>

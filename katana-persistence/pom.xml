@@ -22,10 +22,10 @@
     <org.hibernate.version>3.6.9.Final</org.hibernate.version>
     <org.hibernate.javax.persistence.version>1.0.1.Final</org.hibernate.javax.persistence.version>
     <org.hibernate.validator.version>4.2.0.Final</org.hibernate.validator.version>
-    <commons.dbcp.version>1.4</commons.dbcp.version>
     <javassist.version>3.12.1.GA</javassist.version>
+    <com.jolbox.version>0.7.1.RELEASE</com.jolbox.version>
 
-    <mysql.version>5.1.18</mysql.version> 
+    <mysql.version>5.1.21</mysql.version>
     <hsqldb.version>1.8.0.10</hsqldb.version>
   </properties>
 
@@ -44,11 +44,6 @@
       <version>${org.hibernate.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-c3p0</artifactId>
-      <version>${org.hibernate.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.hibernate.javax.persistence</groupId>
       <artifactId>hibernate-jpa-2.0-api</artifactId>
       <version>${org.hibernate.javax.persistence.version}</version>
@@ -59,14 +54,19 @@
       <version>${org.hibernate.validator.version}</version>
     </dependency>
     <dependency>
-      <groupId>commons-dbcp</groupId>
-      <artifactId>commons-dbcp</artifactId>
-      <version>${commons.dbcp.version}</version>
-    </dependency>
-    <dependency>
       <groupId>javassist</groupId>
       <artifactId>javassist</artifactId>
       <version>${javassist.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jolbox</groupId>
+      <artifactId>bonecp</artifactId>
+      <version>${com.jolbox.version}</version>
+     </dependency>
+    <dependency>
+      <groupId>com.jolbox</groupId>
+      <artifactId>bonecp-provider</artifactId>
+      <version>${com.jolbox.version}</version>
     </dependency>
 
     <!-- Databases -->

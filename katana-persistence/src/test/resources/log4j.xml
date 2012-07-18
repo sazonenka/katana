@@ -57,6 +57,11 @@
     <appender-ref ref="persistenceAppender"/>
   </logger>
 
+  <logger name="com.jolbox" additivity="false">
+    <level value="OFF"/>
+    <appender-ref ref="persistenceAppender"/>
+  </logger>
+
   <logger name="org.hibernate.SQL" additivity="false">
     <level value="OFF"/>
     <appender-ref ref="sqlAppender"/>
